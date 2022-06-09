@@ -1,12 +1,13 @@
 # module du tts
 from gtts import gTTS
-
+from BPM import *
 from pydub import AudioSegment
 from pydub.playback import play
+import numpy
 import playsound
 import platform
 import os
-
+global bpm_values
 ### UTILISER playsound 1.2.2 !!!!!!!!!!!!!!!!
 
 # ce que VIKKI nous dit
@@ -43,8 +44,20 @@ def BPMVoc(inputText, language):
 
     else:  # sur linux
         os.system("open priseBPM.mp3")
-        
-        
+
+def BPMVocResultat(inputText, language, bpm_moy):
+
+    textToSay = ('Vous avez un bpm moyen de : %d battement par minutes' % bpm_moy)
+    
+    priseBPM = gTTS(text=textToSay, lang=language, slow=False)  # slow = false évite que le tts soit mou du genou
+    priseBPM.save("moyenBPM.mp3")  # sauvegarde de la parole en mp3
+
+    if platform.system() == "Windows":  # sur win
+        playsound.playsound("moyenBPM.mp3")
+
+    else:  # sur linux
+        os.system("open moyenBPM.mp3")
+    
 ################### Prise de Température ###################
 def TempVoc(inputText, language):
     
@@ -61,15 +74,25 @@ def TempVoc(inputText, language):
         else:  # sur linux
             os.system("open priseTemp.mp3")
             
-            
+def TempVocResultat(record, language, temp_moy):
+    textToSay = ('Vous avez une température corporelle moyenne de : %d degrés Celcius' % temp_moy)
+    
+    priseBPM = gTTS(text=textToSay, lang=language, slow=False)  # slow = false évite que le tts soit mou du genou
+    priseBPM.save("moyenTemp.mp3")  # sauvegarde de la parole en mp3
+
+    if platform.system() == "Windows":  # sur win
+        playsound.playsound("moyenTemp.mp3")
+
+    else:  # sur linux
+        os.system("open moyenTemp.mp3")
 ################### VIKKI bouge ###################            
 def ActionVoc(inputText, language):
-        textToSay = 'Ok, j\'arrive !'
+        textToSay = 'Ok, ne bougez pas j\'arrive !'
 
         action = gTTS(text=textToSay, lang=language, slow=False)  # slow = false évite que le tts soit mou du genou
         action.save('actionvoc.mp3')  # sauvegarde de la parole en mp3
 
-        print("j'arrive bégé")
+        print("j'arrive !")
 
         if (platform.system() == "Windows"):  # sur win
             playsound.playsound("actionvoc.mp3")

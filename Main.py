@@ -1,9 +1,9 @@
 from VIKKIEntend import *
 import RPi.GPIO as GPIO          
 
-#GPIO.cleanup()
 
 while True:
+    
     vikkiReagit()
     
     #rajouter stop

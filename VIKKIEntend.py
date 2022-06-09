@@ -43,16 +43,20 @@ def come_to_me():
 def mesure_bpm():
     # !! Prioritié 1 !!
     print("prise de BPM en cours")
-    CaptBPM()
+    bpm_values = CaptBPM()
+    bpm_moy = round(numpy.mean(bpm_values))
+    print("BPM moyen : %d" %bpm_moy)
     # utiliser HRV
-    return 0
+    return bpm_moy
 
 
 def mesure_temp():
     # !! Prioritié 1 !!
     print("prise de température en cours")
-    CaptTemp()
-    return 0
+    temp_values = CaptTemp()
+    temp_moy = round(numpy.mean(temp_values))
+    print("Température corporelle moyenne : %d" %temp_moy)
+    return temp_moy
 
 
 def who_are_you():
@@ -78,11 +82,15 @@ def vikkiReagit():
             "fréquence cardiaque" in record.lower())):  # Si "Coeur/Battement/BPM" fait parti des phrases entendu
 
         BPMVoc(record, language)
-        mesure_bpm()
+        time.sleep(3)
+        BPMVocResultat(record, language, mesure_bpm())
+        time.sleep(5)
 
     elif ("température" in record.lower()):
         TempVoc(record, language)
-        mesure_temp()
+        time.sleep(3)
+        TempVocResultat(record, language, mesure_temp())
+        time.sleep(5)
         
     elif (("présente-toi" in record.lower())):
         PresentationVoc(record, language)

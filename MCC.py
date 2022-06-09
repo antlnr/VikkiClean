@@ -101,4 +101,4 @@ def Action():
 def clean():
     tout_droit()
     GPIO.cleanup()
-    
+     

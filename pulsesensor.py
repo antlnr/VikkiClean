@@ -8,6 +8,7 @@ class Pulsesensor:
     def __init__(self, channel = 0, bus = 0, device = 0):
         self.channel = channel
         self.BPM = 0
+        self.ibi = None
         self.adc = MCP3008(bus, device)
 
     def getBPMLoop(self):
@@ -47,7 +48,8 @@ class Pulsesensor:
             if N > 250:                                 # avoid high frequency noise
                 if Signal > thresh and Pulse == False and N > (IBI/5.0)*3:       
                     Pulse = True                        # set the Pulse flag when we think there is a pulse
-                    IBI = sampleCounter - lastBeatTime  # measure time between beats in mS
+                    IBI = sampleCounter - lastBeatTime  # measure time b0tween beats in mS
+                    self.ibi = IBI
                     lastBeatTime = sampleCounter        # keep track of time for next pulse
 
                     if secondBeat:                      # if this is the second beat, if secondBeat == TRUE
